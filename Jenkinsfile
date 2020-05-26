@@ -44,7 +44,7 @@ pipeline {
         always {
                 sh 'conda remove --yes -n ${BUILD_TAG} --all'
                 // Archive unit tests for the future
-                junit 'reports/results.xml', fingerprint: true
+                junit 'reports/results.xml'
                 archiveArtifacts artifacts: 'reports/', fingerprint: true
             }
         failure {
