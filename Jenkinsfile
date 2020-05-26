@@ -27,10 +27,11 @@ pipeline {
                 echo 'Build environment'
                 sh '''conda create --yes -n ${BUILD_TAG} python
                       source activate ${BUILD_TAG} 
+                      pip install -r requirements.txt
                     '''
             }
         }
-        stage('Test') {
+        stage('Test environment') {
             steps {
                 echo "Testing stage"
                 sh  ''' source activate ${BUILD_TAG}
