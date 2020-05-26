@@ -30,13 +30,15 @@ pipeline {
                     '''
             }
         }
-        stage('Unit tests') {
+        stage('Test') {
             steps {
+                echo "Testing stage"
                 sh  ''' source activate ${BUILD_TAG}
-                        python -m pytest --verbose --html=reports/report.html
+                        python3 -m pytest --verbose --html=reports/report.html
                     '''
             }
         }
+    }
     post {
         always {
             sh 'conda remove --yes -n ${BUILD_TAG} --all'
