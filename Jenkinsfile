@@ -44,7 +44,7 @@ pipeline {
         always {
                 sh 'conda remove --yes -n ${BUILD_TAG} --all'
                 // Archive unit tests for the future
-                junit allowEmptyResults: true, testResults: 'test-reports/results.xml'
+                junit allowEmptyResults: true, testResults: 'reports/report.html'
             }
         failure {
             echo "Send e-mail, when failed"
