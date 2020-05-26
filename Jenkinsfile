@@ -18,11 +18,13 @@ pipeline {
 
         stage ("Code pull"){
             steps{
+                echo 'Code pull'
                 checkout scm
             }
         }
         stage('Build environment') {
             steps {
+                echo 'Build environment'
                 sh '''conda create --yes -n ${BUILD_TAG} python
                       source activate ${BUILD_TAG} 
                       pip install -r requirements.txt
@@ -31,6 +33,7 @@ pipeline {
         }
         stage('Test environment') {
             steps {
+                echo 'Test environment'
                 sh '''source activate ${BUILD_TAG} 
                       pip list
                       which pip
