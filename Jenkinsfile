@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo "Testing stage"
                 sh  ''' source activate ${BUILD_TAG}
-                        python3 -m pytest --verbose --html=reports/report.html
+                        python3 -m pytest --verbose --html=reports/report.html --junit-xml reports/results.xml
                     '''
             }
         }
@@ -44,7 +44,8 @@ pipeline {
         always {
                 sh 'conda remove --yes -n ${BUILD_TAG} --all'
                 // Archive unit tests for the future
-                junit allowEmptyResults: true, testResults: 'reports/report.html'
+                junit allowEmptyResults: true, testResults: 'reports/results.xml'
+                archiveArtifacts artifacts: 'reports/*.html', fingerprint: true
             }
         failure {
             echo "Send e-mail, when failed"
