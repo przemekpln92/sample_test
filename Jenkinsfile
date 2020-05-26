@@ -27,21 +27,16 @@ pipeline {
                 echo 'Build environment'
                 sh '''conda create --yes -n ${BUILD_TAG} python
                       source activate ${BUILD_TAG} 
-                      pip install -r requirements.txt
                     '''
             }
         }
-        stage('Test environment') {
+        stage('Unit tests') {
             steps {
-                echo 'Test environment'
-                sh '''source activate ${BUILD_TAG} 
-                      pip list
-                      which pip
-                      which python
+                sh  ''' source activate ${BUILD_TAG}
+                        python -m pytest --verbose --html=reports/report.html
                     '''
             }
         }
-    }
     post {
         always {
             sh 'conda remove --yes -n ${BUILD_TAG} --all'
