@@ -7,10 +7,11 @@ pipeline {
         //         echo 'Building'
         //     }
         // }
-        stage('Test') {
+        stage('Unit tests') {
             steps {
-                echo 'Testing'
-            }
+                sh  ''' source activate ${BUILD_TAG}
+                        python -m pytest --verbose --html=reports/report.html
+                    '''
         }
         stage('Deploy') {
             steps {
