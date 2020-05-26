@@ -1,4 +1,3 @@
-#sample Jenkins pipeline structure
 pipeline {
     agent any
 
